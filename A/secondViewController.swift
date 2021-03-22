@@ -10,12 +10,11 @@ import UIKit
 class secondViewController: UIViewController {
     
     var quizArray = [Any]()
-    
     var correctAnswer: Int = 0
-    
     var count: Float = 0.0
-    
     var timer: Timer = Timer()
+    var number: Int!
+    
     
     
     @IBOutlet var question: UITextView!
@@ -24,8 +23,7 @@ class secondViewController: UIViewController {
     @IBOutlet var R: UIButton!
     @IBOutlet var logoS: UIImageView!
     @IBOutlet var back: UIButton!
-    
-    
+    @IBOutlet var NEXT: UIButton!
     
 
     override func viewDidLoad() {
@@ -79,9 +77,19 @@ class secondViewController: UIViewController {
         }
     }
     
+    @objc func upS(){
+        count = count + 0.01
+        if count > 0.05{
+            timer.invalidate()
+            P.backgroundColor = UIColor.orange
+        }
+    }
+    
     @IBAction func choiceAnswer(sender: UIButton){
         
         let tmpArray = quizArray[0] as! [Any]
+        
+        number = sender.tag
         
         if tmpArray[4] as! Int == sender.tag{
             
@@ -99,20 +107,28 @@ class secondViewController: UIViewController {
             correctAnswer = correctAnswer + 1
 
         }else{
-            
+            if !timer.isValid{
+                count = 0.0
+                timer = Timer.scheduledTimer(
+                    timeInterval:0.01,
+                    target: self,
+                    selector: #selector(self.upS),
+                    userInfo: nil,
+                    repeats: true)
+            }
         }
         
         quizArray.remove(at: 0)
         
-        if !timer.isValid{
+}
+    
+    @IBAction func Next(){
         if quizArray.count == 0{
             performSegueToThirdView()
         }else{
             choiceQuiz()
         }
-        }
-        
-}
+    }
     
     @IBAction func Back(){
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
