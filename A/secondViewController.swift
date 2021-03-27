@@ -13,8 +13,8 @@ class secondViewController: UIViewController {
     var correctAnswer: Int = 0
     var count: Float = 0.0
     var timer: Timer = Timer()
-    var number: Int!
-    
+    var truth: Int!
+    var number: Int = 0
     
     
     @IBOutlet var question: UITextView!
@@ -24,6 +24,8 @@ class secondViewController: UIViewController {
     @IBOutlet var logoS: UIImageView!
     @IBOutlet var back: UIButton!
     @IBOutlet var NEXT: UIButton!
+    
+    let rgba = UIColor(red: 1.0, green: 0.81, blue: 0, alpha: 1.0)
     
 
     override func viewDidLoad() {
@@ -46,6 +48,23 @@ class secondViewController: UIViewController {
     
     func choiceQuiz(){
         let tmpArray = quizArray[0] as! [Any]
+        
+        P.backgroundColor = rgba
+        Q.backgroundColor = rgba
+        R.backgroundColor = rgba
+        
+        number = 0
+        
+        if !timer.isValid{
+            count = 0.0
+            timer = Timer.scheduledTimer(
+                timeInterval:0.01,
+                target: self,
+                selector: #selector(self.up),
+                userInfo: nil,
+                repeats: true
+                )
+        }
         
         question.text = tmpArray[0] as? String
          
@@ -81,15 +100,25 @@ class secondViewController: UIViewController {
         count = count + 0.01
         if count > 0.05{
             timer.invalidate()
-            P.backgroundColor = UIColor.orange
+//            P.backgroundColor = UIColor.orange
+            if P.tag == truth{
+                P.backgroundColor = UIColor.orange
+            }else if Q.tag == truth{
+                Q.backgroundColor = UIColor.orange
+            }else if R.tag == truth{
+                R.backgroundColor = UIColor.orange
+            }
+            
         }
     }
     
     @IBAction func choiceAnswer(sender: UIButton){
         
-        let tmpArray = quizArray[0] as! [Any]
+        number = number + 1
         
-        number = sender.tag
+        if number == 1 {
+            let tmpArray = quizArray[0] as! [Any]
+            truth = tmpArray[4] as! Int
         
         if tmpArray[4] as! Int == sender.tag{
             
@@ -121,16 +150,22 @@ class secondViewController: UIViewController {
         quizArray.remove(at: 0)
         
 }
+    }
     
     @IBAction func Next(){
+        if number == 1{
         if quizArray.count == 0{
             performSegueToThirdView()
         }else{
             choiceQuiz()
         }
     }
+    }
     
     @IBAction func Back(){
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
+
+    
+    
 }
