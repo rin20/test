@@ -153,7 +153,7 @@ class secondViewController: UIViewController {
     }
     
     @IBAction func Next(){
-        if number == 1{
+        if number > 1{
         if quizArray.count == 0{
             performSegueToThirdView()
         }else{

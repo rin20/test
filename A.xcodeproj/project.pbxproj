@@ -15,6 +15,7 @@
 		BC28226A25F3984E00BF1220 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC28226825F3984E00BF1220 /* LaunchScreen.storyboard */; };
 		BC28227525F3984E00BF1220 /* ATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28227425F3984E00BF1220 /* ATests.swift */; };
 		BC28228025F3984F00BF1220 /* AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28227F25F3984F00BF1220 /* AUITests.swift */; };
+		BC497F73261066FA00AC8981 /* questionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC497F72261066FA00AC8981 /* questionViewController.swift */; };
 		BCCED9842606F41E0085C210 /* secondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCED9832606F41E0085C210 /* secondViewController.swift */; };
 		BCCED9892606F4340085C210 /* thirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCED9882606F4340085C210 /* thirdViewController.swift */; };
 		BCCED98E2606F4F70085C210 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCED98D2606F4F70085C210 /* homeViewController.swift */; };
@@ -54,6 +55,7 @@
 		BC28227B25F3984F00BF1220 /* AUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC28227F25F3984F00BF1220 /* AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AUITests.swift; sourceTree = "<group>"; };
 		BC28228125F3984F00BF1220 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC497F72261066FA00AC8981 /* questionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = questionViewController.swift; sourceTree = "<group>"; };
 		BCCED9832606F41E0085C210 /* secondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondViewController.swift; sourceTree = "<group>"; };
 		BCCED9882606F4340085C210 /* thirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thirdViewController.swift; sourceTree = "<group>"; };
 		BCCED98D2606F4F70085C210 /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				BCCED9882606F4340085C210 /* thirdViewController.swift */,
 				BCCED9A4260F06210085C210 /* TableViewController.swift */,
 				BCCED9AC260F12200085C210 /* SaveViewController.swift */,
+				BC497F72261066FA00AC8981 /* questionViewController.swift */,
 				BC28226625F3984E00BF1220 /* Assets.xcassets */,
 				BC28226825F3984E00BF1220 /* LaunchScreen.storyboard */,
 				BC28226B25F3984E00BF1220 /* Info.plist */,
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC497F73261066FA00AC8981 /* questionViewController.swift in Sources */,
 				BCCED9842606F41E0085C210 /* secondViewController.swift in Sources */,
 				BCCED9AD260F12200085C210 /* SaveViewController.swift in Sources */,
 				BCCED9A5260F06220085C210 /* TableViewController.swift in Sources */,
@@ -457,12 +461,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M8GQZ88DYC;
 				INFOPLIST_FILE = A/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "app.kumagai-rin.A";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.kumagai-rin.suziankigame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -475,12 +480,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M8GQZ88DYC;
 				INFOPLIST_FILE = A/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "app.kumagai-rin.A";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.kumagai-rin.suziankigame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

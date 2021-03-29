@@ -7,24 +7,50 @@
 
 import UIKit
 
-class TableViewController: UIViewController, UITableViewDataSource {
+class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
-    var questionArray: [[Any]] = [["日本の原油の輸入相手国第一位はどこ？","カタール","サウジアラビア","アラブ首長国連邦",2],["日本の綿花の輸入相手国第二位はどこ？","ブラジル","アメリカ","オーストラリア",3],["アメリカ合衆国からの輸入品のうち、輸入額が最も高いのは何？","医薬品","航空機類","機械類",3],["二酸化炭素排出量が世界第二位の国・地域はどこ？","アメリカ","中国","EU",1],["人口が世界で４番目に多い国はどこ？","インドネシア","アメリカ","ブラジル",1]]
+    var questionArray =  [[Any]]()
+    var userdefaults: UserDefaults = UserDefaults.standard
+    var number = [[Any]]()
     
 //    ストーリーボードで使うテーブルビューを宣言
     @IBOutlet var table: UITableView!
+    @IBOutlet var QuestionL: UILabel!
+    @IBOutlet var PLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
 //        tabelViewのdataSourceメソッドはviewControllerClassに書く、と言う設定
         table.dataSource = self
+        table.delegate = self
+        
+        
+       
         
         
         
-            
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        questionArray = []
+        questionArray.append(["日本の原油の輸入相手国第一位はどこ？","カタール","サウジアラビア","アラブ首長国連邦",2])
+        questionArray.append(["日本の綿花の輸入相手国第二位はどこ？","ブラジル","アメリカ","オーストラリア",3])
+        questionArray.append(["アメリカ合衆国からの輸入品のうち、輸入額が最も高いのは何？","医薬品","航空機類","機械類",3])
+        questionArray.append(["二酸化炭素排出量が世界第二位の国・地域はどこ？","アメリカ","中国","EU",1])
+        questionArray.append(["人口が世界で４番目に多い国はどこ？","インドネシア","アメリカ","ブラジル",1])
+        if userdefaults.object(forKey: "quizArr") != nil {
+            var quizArr: [[Any]] = userdefaults.object(forKey: "quizArr") as! [[Any]]
+            questionArray.append(contentsOf:quizArr)
+            table.reloadData()
+        }
+        print(questionArray)
+        
+        number = [[Double]]()
+        }
+        
+    
     
 //    セルの数を設定
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,15 +60,26 @@ class TableViewController: UIViewController, UITableViewDataSource {
 //    ID付きのセルを取得して、セル付属のtextLabelに表示させる文字を決める
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        print(questionArray[indexPath.row])
         
-        cell?.textLabel?.text = questionArray[indexPath.row] as! String
+        cell?.textLabel?.text = questionArray[indexPath.row][0] as? String
         
         return cell!
     }
     
-    func tableView(_ tableView: UITableView, didselectRowAt indexPath: IndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         print("\(questionArray[indexPath.row])が選ばれました！")
+        number.append(questionArray[indexPath.row])
         }
+    
+    override func prepare(for segue: UIStoryboardSegue , sender: Any?){
+        if segue.identifier == "toViewSegue"{
+            let nextView = segue.destination as! questionViewController
+            
+            
+        }
+        
+    }
 
     /*
     // MARK: - Navigation
