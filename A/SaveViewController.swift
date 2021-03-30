@@ -12,6 +12,7 @@ class SaveViewController: UIViewController {
     
     var saveData: UserDefaults = UserDefaults.standard
     var number: Int = 0
+    var Cell: Int = 0
     
     @IBOutlet var question: UITextView!
     @IBOutlet var p: UITextField!
@@ -74,12 +75,13 @@ class SaveViewController: UIViewController {
                         title:"OK",
                         style: .default,
                         handler: { action in
+                            self.navigationController?.popViewController(animated: true)
                         })
         )
         
         present(alert, animated: true, completion: nil)
         
-        self.navigationController?.popViewController(animated: true)
+        
 
         
     }
