@@ -26,8 +26,15 @@ class thirdViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+   
+    
     @IBAction func Back(){
-        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        
+        
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        
     }
     
 

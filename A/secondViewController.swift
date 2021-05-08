@@ -15,7 +15,7 @@ class secondViewController: UIViewController {
     var timer: Timer = Timer()
     var truth: Int!
     var number: Int = 0
-    
+    var saveData: UserDefaults = UserDefaults.standard
     
     @IBOutlet var question: UITextView!
     @IBOutlet var P: UIButton!
@@ -27,23 +27,28 @@ class secondViewController: UIViewController {
     
     let rgba = UIColor(red: 1.0, green: 0.81, blue: 0, alpha: 1.0)
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        quizArray.append(["日本の原油の輸入相手国第一位はどこ？","カタール","サウジアラビア","アラブ首長国連邦",2])
-        quizArray.append(["日本の綿花の輸入相手国第二位はどこ？","ブラジル","アメリカ","オーストラリア",3])
-        quizArray.append(["アメリカ合衆国からの輸入品のうち、輸入額が最も高いのは何？","医薬品","航空機類","機械類",3])
-        quizArray.append(["二酸化炭素排出量が世界第二位の国・地域はどこ？","アメリカ","中国","EU",1])
-        quizArray.append(["人口が世界で４番目に多い国はどこ？","インドネシア","アメリカ","ブラジル",1])
+        
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if saveData.object(forKey: "quizArr") != nil{
+            quizArray = saveData.object(forKey: "quizArr") as! [Any]
+        }else{
+            quizArray = [["日本の原油の輸入相手国第一位はどこ？","カタール","サウジアラビア","アラブ首長国連邦",2],["日本の綿花の輸入相手国第二位はどこ？","ブラジル","アメリカ","オーストラリア",3],
+                         ["アメリカ合衆国からの輸入品のうち、輸入額が最も高いのは何？","医薬品","航空機類","機械類",3],["二酸化炭素排出量が世界第二位の国・地域はどこ？","アメリカ","中国","EU",1],["人口が世界で４番目に多い国はどこ？","インドネシア","アメリカ","ブラジル",1]]
+        }
         
         quizArray.shuffle()
         
         choiceQuiz()
         
         logoS.isHidden = true
-
-        // Do any additional setup after loading the view.
     }
     
     func choiceQuiz(){
@@ -55,28 +60,18 @@ class secondViewController: UIViewController {
         
         number = 0
         
-        if !timer.isValid{
-            count = 0.0
-            timer = Timer.scheduledTimer(
-                timeInterval:0.01,
-                target: self,
-                selector: #selector(self.up),
-                userInfo: nil,
-                repeats: true
-                )
-        }
         
         question.text = tmpArray[0] as? String
-         
+        
         P.setTitle(tmpArray[1] as? String, for: .normal)
         Q.setTitle(tmpArray[2] as? String, for: .normal)
         R.setTitle(tmpArray[3] as? String, for: .normal)
         
     }
     
-    func performSegueToThirdView(){
-        performSegue(withIdentifier: "toThirdView", sender: nil)
-    }
+//    func performSegueToThirdView(){
+//        self.performSegue(withIdentifier: "toThirdView", sender: nil)
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "toThirdView"{
@@ -85,6 +80,14 @@ class secondViewController: UIViewController {
             nextView.argString = String(correctAnswer)
         }
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+            super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+
+            // When the switch is off, it cancels the segue.
+        return quizArray.count != 0
+        }
+
     
     @objc func up (){
         count = count + 0.01
@@ -100,7 +103,7 @@ class secondViewController: UIViewController {
         count = count + 0.01
         if count > 0.05{
             timer.invalidate()
-//            P.backgroundColor = UIColor.orange
+            //            P.backgroundColor = UIColor.orange
             if P.tag == truth{
                 P.backgroundColor = UIColor.orange
             }else if Q.tag == truth{
@@ -119,53 +122,55 @@ class secondViewController: UIViewController {
         if number == 1 {
             let tmpArray = quizArray[0] as! [Any]
             truth = tmpArray[4] as! Int
-        
-        if tmpArray[4] as! Int == sender.tag{
             
-            if !timer.isValid{
-                count = 0.0
-                timer = Timer.scheduledTimer(
-                    timeInterval:0.01,
-                    target: self,
-                    selector: #selector(self.up),
-                    userInfo: nil,
-                    repeats: true
+            if tmpArray[4] as! Int == sender.tag{
+                
+                if !timer.isValid{
+                    count = 0.0
+                    timer = Timer.scheduledTimer(
+                        timeInterval:0.01,
+                        target: self,
+                        selector: #selector(self.up),
+                        userInfo: nil,
+                        repeats: true
                     )
+                }
+                
+                correctAnswer = correctAnswer + 1
+                
+            }else{
+                if !timer.isValid{
+                    count = 0.0
+                    timer = Timer.scheduledTimer(
+                        timeInterval:0.01,
+                        target: self,
+                        selector: #selector(self.upS),
+                        userInfo: nil,
+                        repeats: true)
+                }
             }
             
-            correctAnswer = correctAnswer + 1
-
-        }else{
-            if !timer.isValid{
-                count = 0.0
-                timer = Timer.scheduledTimer(
-                    timeInterval:0.01,
-                    target: self,
-                    selector: #selector(self.upS),
-                    userInfo: nil,
-                    repeats: true)
-            }
+            quizArray.remove(at: 0)
+            
+            
         }
-        
-        quizArray.remove(at: 0)
-        
-}
     }
     
     @IBAction func Next(){
-        if number > 1{
-        if quizArray.count == 0{
-            performSegueToThirdView()
-        }else{
-            choiceQuiz()
+        logoS.isHidden = true
+        
+        if number > 0{
+            if quizArray.count == 0{
+            }else{
+                choiceQuiz()
+            }
         }
-    }
     }
     
     @IBAction func Back(){
-            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-
+    
     
     
 }

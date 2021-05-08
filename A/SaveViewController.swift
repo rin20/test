@@ -13,6 +13,7 @@ class SaveViewController: UIViewController {
     var saveData: UserDefaults = UserDefaults.standard
     var number: Int = 0
     var Cell: Int = 0
+    var CellArr = [[Any]]()
     
     @IBOutlet var question: UITextView!
     @IBOutlet var p: UITextField!
@@ -29,8 +30,18 @@ class SaveViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    
-    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if Cell != 0 {
+            var saveData: UserDefaults = UserDefaults.standard
+            CellArr = saveData.object(forKey: "quizArr") as! [[Any]]
+            question.text = CellArr[Cell][0] as? String
+            p.text = CellArr[Cell][1] as? String
+            q.text = CellArr[Cell][2] as? String
+            r.text = CellArr[Cell][3] as? String
+                
+        }
+    }
     
     @IBAction func True(sender: UIButton){
         if sender.tag == 1{
@@ -58,15 +69,27 @@ class SaveViewController: UIViewController {
         }
         
         // クイズ形式の配列にする
-        let quiz = [quizText, choice1, choice2, choice3, correct] as [Any]
         
-        // 保存しているものにアクセス
-        let userDefaults = UserDefaults.standard
-        var quizArr: [[Any]] = userDefaults.object(forKey: "quizArr") as! [[Any]]
-        quizArr.append(quiz)
         
-        // 新しいクイズが入った配列を上書き保存
-        userDefaults.set(quizArr, forKey: "quizArr")
+        if Cell != 0{
+            CellArr[Cell][0] = question.text as Any
+            CellArr[Cell][1] = p.text as Any
+            CellArr[Cell][2] = q.text as Any
+            CellArr[Cell][3] = r.text as Any
+            
+            saveData.setValue(CellArr, forKey: "quizArr")
+            
+        }else {
+            let quiz = [quizText, choice1, choice2, choice3, correct] as [Any]
+            
+            // 保存しているものにアクセス
+            let userDefaults = UserDefaults.standard
+            var quizArr: [[Any]] = userDefaults.object(forKey: "quizArr") as! [[Any]]
+            quizArr.append(quiz)
+            
+            // 新しいクイズが入った配列を上書き保存
+            userDefaults.set(quizArr, forKey: "quizArr")
+        }
         
         let alert: UIAlertController = UIAlertController(title: "保存", message: "問題の保存が完了しました！", preferredStyle: .alert)
         
@@ -75,7 +98,7 @@ class SaveViewController: UIViewController {
                         title:"OK",
                         style: .default,
                         handler: { action in
-                            self.navigationController?.popViewController(animated: true)
+                            self.navigationController?.popToRootViewController(animated: true)
                         })
         )
         
@@ -83,7 +106,7 @@ class SaveViewController: UIViewController {
         
         
 
-        
+            
     }
     
     
