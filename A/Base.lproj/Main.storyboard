@@ -133,7 +133,6 @@
                                 <state key="normal" title="次へ"/>
                                 <connections>
                                     <action selector="Next" destination="TBf-i2-7sM" eventType="touchUpInside" id="qQz-2B-c6p"/>
-                                    <segue destination="HH2-Iv-kRr" kind="show" identifier="toThirdView" id="hKA-WN-KkE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akA-g0-c5L">
@@ -168,7 +167,7 @@
         <!--Third View Controller-->
         <scene sceneID="ai4-1i-82Q">
             <objects>
-                <viewController id="HH2-Iv-kRr" customClass="thirdViewController" customModule="A" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="thirdVC" id="HH2-Iv-kRr" customClass="thirdViewController" customModule="A" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ti2-4b-kls">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -191,8 +190,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="５問中" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2z-7Q-vyy">
-                                <rect key="frame" x="77" y="437" width="103" height="54"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="問中" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2z-7Q-vyy">
+                                <rect key="frame" x="107" y="437" width="73" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
@@ -222,6 +221,13 @@
                                     <action selector="Back" destination="HH2-Iv-kRr" eventType="touchUpInside" id="JZ9-dY-8b9"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVf-8b-Wq8">
+                                <rect key="frame" x="65" y="443" width="42" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kx9-PJ-mn0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -233,12 +239,13 @@
                         <outlet property="answer" destination="4iZ-Yz-Yac" id="WBj-L9-DSx"/>
                         <outlet property="back" destination="gqF-eU-Wfn" id="b4g-ao-FXo"/>
                         <outlet property="logoT" destination="hBw-Vw-dW8" id="Iyn-Br-8Ro"/>
+                        <outlet property="questionCount" destination="AVf-8b-Wq8" id="sEc-py-92X"/>
                         <outlet property="result" destination="8Hb-fM-xK5" id="KR3-cH-uhd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Cf-OT-s6N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="920" y="94"/>
+            <point key="canvasLocation" x="918.84057971014499" y="93.75"/>
         </scene>
         <!--クイズリスト-->
         <scene sceneID="4WN-mO-Jbu">

@@ -16,6 +16,8 @@ class secondViewController: UIViewController {
     var truth: Int!
     var number: Int = 0
     var saveData: UserDefaults = UserDefaults.standard
+    var checkTimer: Int = 0
+    var questionNumber: Int = 0
     
     @IBOutlet var question: UITextView!
     @IBOutlet var P: UIButton!
@@ -49,49 +51,57 @@ class secondViewController: UIViewController {
         choiceQuiz()
         
         logoS.isHidden = true
+        
+        checkTimer = 0
+        
+        questionNumber = quizArray.count
     }
+    
+    
     
     func choiceQuiz(){
-        let tmpArray = quizArray[0] as! [Any]
         
-        P.backgroundColor = rgba
-        Q.backgroundColor = rgba
-        R.backgroundColor = rgba
-        
-        number = 0
-        
-        
-        question.text = tmpArray[0] as? String
-        
-        P.setTitle(tmpArray[1] as? String, for: .normal)
-        Q.setTitle(tmpArray[2] as? String, for: .normal)
-        R.setTitle(tmpArray[3] as? String, for: .normal)
-        
-    }
-    
-//    func performSegueToThirdView(){
-//        self.performSegue(withIdentifier: "toThirdView", sender: nil)
-//    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == "toThirdView"{
-            let nextView = segue.destination as! thirdViewController
+        if quizArray.count != 0{
             
-            nextView.argString = String(correctAnswer)
+            P.backgroundColor = rgba
+            Q.backgroundColor = rgba
+            R.backgroundColor = rgba
+            
+                if !timer.isValid{
+                    count = 0.0
+                    timer = Timer.scheduledTimer(
+                        timeInterval:0.01,
+                        target: self,
+                        selector: #selector(self.upT),
+                        userInfo: nil,
+                        repeats: true)
+                }
+            
+                
+//                let tmpArray = quizArray[0] as! [Any]
+//
+//                question.text = tmpArray[0] as? String
+//
+//                P.setTitle(tmpArray[1] as? String, for: .normal)
+//                Q.setTitle(tmpArray[2] as? String, for: .normal)
+//                R.setTitle(tmpArray[3] as? String, for: .normal)
+                
+            
+            
+        }
+        else{
+            let nextView = storyboard!.instantiateViewController(withIdentifier: "thirdVC") as! thirdViewController
+            nextView.correctAnswerCount = String(correctAnswer)
+            nextView.questionC = String(questionNumber)
+            self.present(nextView, animated: true, completion: nil)
+            
         }
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-            super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
-
-            // When the switch is off, it cancels the segue.
-        return quizArray.count != 0
-        }
-
     
     @objc func up (){
         count = count + 0.01
-        if count > 0.5{
+        if count > 0.05{
             timer.invalidate()
             logoS.isHidden = true
         }else{
@@ -103,8 +113,8 @@ class secondViewController: UIViewController {
         count = count + 0.01
         if count > 0.05{
             timer.invalidate()
-            //            P.backgroundColor = UIColor.orange
             if P.tag == truth{
+                
                 P.backgroundColor = UIColor.orange
             }else if Q.tag == truth{
                 Q.backgroundColor = UIColor.orange
@@ -115,60 +125,60 @@ class secondViewController: UIViewController {
         }
     }
     
+    @objc func upT(){
+        count = count + 0.01
+        if count > 0.5{
+            timer.invalidate()
+            
+            let tmpArray = quizArray[0] as! [Any]
+            
+            question.text = tmpArray[0] as? String
+            
+            P.setTitle(tmpArray[1] as? String, for: .normal)
+            Q.setTitle(tmpArray[2] as? String, for: .normal)
+            R.setTitle(tmpArray[3] as? String, for: .normal)
+            
+            print("upT動いてる")
+        }
+    }
+    
     @IBAction func choiceAnswer(sender: UIButton){
         
-        number = number + 1
+        let tmpArray = quizArray[0] as! [Any]
+        truth = tmpArray[4] as! Int
         
-        if number == 1 {
-            let tmpArray = quizArray[0] as! [Any]
-            truth = tmpArray[4] as! Int
+        if tmpArray[4] as! Int == sender.tag{
             
-            if tmpArray[4] as! Int == sender.tag{
-                
-                if !timer.isValid{
-                    count = 0.0
-                    timer = Timer.scheduledTimer(
-                        timeInterval:0.01,
-                        target: self,
-                        selector: #selector(self.up),
-                        userInfo: nil,
-                        repeats: true
-                    )
-                }
-                
-                correctAnswer = correctAnswer + 1
-                
-            }else{
-                if !timer.isValid{
-                    count = 0.0
-                    timer = Timer.scheduledTimer(
-                        timeInterval:0.01,
-                        target: self,
-                        selector: #selector(self.upS),
-                        userInfo: nil,
-                        repeats: true)
-                }
+            if !timer.isValid{
+                count = 0.0
+                timer = Timer.scheduledTimer(
+                    timeInterval:0.01,
+                    target: self,
+                    selector: #selector(self.up),
+                    userInfo: nil,
+                    repeats: true
+                )
             }
             
-            quizArray.remove(at: 0)
+            correctAnswer = correctAnswer + 1
+            
+        }else{
+            if !timer.isValid{
+                count = 0.0
+                timer = Timer.scheduledTimer(
+                    timeInterval:0.01,
+                    target: self,
+                    selector: #selector(self.upS),
+                    userInfo: nil,
+                    repeats: true)
+            }
             
             
         }
-    }
-    
-    @IBAction func Next(){
-        logoS.isHidden = true
+        quizArray.remove(at: 0)
         
-        if number > 0{
-            if quizArray.count == 0{
-            }else{
-                choiceQuiz()
-            }
-        }
-    }
-    
-    @IBAction func Back(){
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        choiceQuiz()
+        
     }
     
     

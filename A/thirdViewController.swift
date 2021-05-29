@@ -11,17 +11,20 @@ class thirdViewController: UIViewController {
     
     var correctAnswer: Int = 0
     
-    var argString = ""
+    var correctAnswerCount = ""
+    var questionC = ""
     
     @IBOutlet var logoT: UIImageView!
     @IBOutlet var result: UILabel!
     @IBOutlet var answer:UILabel!
     @IBOutlet var back: UIButton!
+    @IBOutlet var questionCount: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        answer.text = argString
+        answer.text = correctAnswerCount
+        questionCount.text = questionC
 
         // Do any additional setup after loading the view.
     }
@@ -29,9 +32,7 @@ class thirdViewController: UIViewController {
    
     
     @IBAction func Back(){
-//        self.presentingViewController?.dismiss(animated: true, completion: nil)
-        
-        
+
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
         
