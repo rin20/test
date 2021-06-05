@@ -45,12 +45,23 @@ class SaveViewController: UIViewController {
     
     @IBAction func True(sender: UIButton){
         if sender.tag == 1{
-            number = number + 1
+            number = 1
         }else if sender.tag == 2{
-            number = number + 2
+            number = 2
         }else if sender.tag == 3{
-            number = number + 3
+            number = 3
         }
+    
+        let alertS: UIAlertController = UIAlertController(title:"正答決定！", message: "正解は\(number)です！", preferredStyle: .alert)
+        
+        alertS.addAction(
+                UIAlertAction(
+                    title: "OK",
+                    style: .default
+                    )
+        )
+        
+        present(alertS, animated: true, completion: nil)
     }
     
     @IBAction func saveMemo(){
@@ -62,20 +73,19 @@ class SaveViewController: UIViewController {
         var correct: Int = 0
         
         if number == 1{
+            correct = 1
         }else if number == 2{
             correct = 2
         }else if number == 3{
             correct = 3
         }
         
-        // クイズ形式の配列にする
-        
-        
         if Cell != 0{
             CellArr[Cell][0] = question.text as Any
             CellArr[Cell][1] = p.text as Any
             CellArr[Cell][2] = q.text as Any
             CellArr[Cell][3] = r.text as Any
+            CellArr[Cell][4] = correct as Any
             
             saveData.setValue(CellArr, forKey: "quizArr")
             
@@ -104,9 +114,6 @@ class SaveViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
         
-        
-
-            
     }
     
     

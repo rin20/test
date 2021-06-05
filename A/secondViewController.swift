@@ -67,26 +67,13 @@ class secondViewController: UIViewController {
             Q.backgroundColor = rgba
             R.backgroundColor = rgba
             
-                if !timer.isValid{
-                    count = 0.0
-                    timer = Timer.scheduledTimer(
-                        timeInterval:0.01,
-                        target: self,
-                        selector: #selector(self.upT),
-                        userInfo: nil,
-                        repeats: true)
-                }
+            let tmpArray = quizArray[0] as! [Any]
             
-                
-//                let tmpArray = quizArray[0] as! [Any]
-//
-//                question.text = tmpArray[0] as? String
-//
-//                P.setTitle(tmpArray[1] as? String, for: .normal)
-//                Q.setTitle(tmpArray[2] as? String, for: .normal)
-//                R.setTitle(tmpArray[3] as? String, for: .normal)
-                
+            question.text = tmpArray[0] as? String
             
+            P.setTitle(tmpArray[1] as? String, for: .normal)
+            Q.setTitle(tmpArray[2] as? String, for: .normal)
+            R.setTitle(tmpArray[3] as? String, for: .normal)
             
         }
         else{
@@ -101,27 +88,20 @@ class secondViewController: UIViewController {
     
     @objc func up (){
         count = count + 0.01
-        if count > 0.05{
+        if count > 0.5{
             timer.invalidate()
             logoS.isHidden = true
         }else{
             logoS.isHidden = false
         }
+        choiceQuiz()
     }
     
     @objc func upS(){
         count = count + 0.01
-        if count > 0.05{
+        if count > 0.5{
             timer.invalidate()
-            if P.tag == truth{
-                
-                P.backgroundColor = UIColor.orange
-            }else if Q.tag == truth{
-                Q.backgroundColor = UIColor.orange
-            }else if R.tag == truth{
-                R.backgroundColor = UIColor.orange
-            }
-            
+            choiceQuiz()
         }
     }
     
@@ -130,57 +110,65 @@ class secondViewController: UIViewController {
         if count > 0.5{
             timer.invalidate()
             
+            //            let tmpArray = quizArray[0] as! [Any]
+            //
+            //            question.text = tmpArray[0] as? String
+            //
+            //            P.setTitle(tmpArray[1] as? String, for: .normal)
+            //            Q.setTitle(tmpArray[2] as? String, for: .normal)
+            //            R.setTitle(tmpArray[3] as? String, for: .normal)
+            //
+            //            print("upT動いてる")
+            //        }
+        }
+    }
+        @IBAction func choiceAnswer(sender: UIButton){
+            
             let tmpArray = quizArray[0] as! [Any]
+            truth = tmpArray[4] as! Int
             
-            question.text = tmpArray[0] as? String
-            
-            P.setTitle(tmpArray[1] as? String, for: .normal)
-            Q.setTitle(tmpArray[2] as? String, for: .normal)
-            R.setTitle(tmpArray[3] as? String, for: .normal)
-            
-            print("upT動いてる")
-        }
-    }
-    
-    @IBAction func choiceAnswer(sender: UIButton){
-        
-        let tmpArray = quizArray[0] as! [Any]
-        truth = tmpArray[4] as! Int
-        
-        if tmpArray[4] as! Int == sender.tag{
-            
-            if !timer.isValid{
-                count = 0.0
-                timer = Timer.scheduledTimer(
-                    timeInterval:0.01,
-                    target: self,
-                    selector: #selector(self.up),
-                    userInfo: nil,
-                    repeats: true
-                )
+            if P.tag == truth{
+                P.backgroundColor = UIColor.orange
+            }else if Q.tag == truth{
+                Q.backgroundColor = UIColor.orange
+            }else if R.tag == truth{
+                R.backgroundColor = UIColor.orange
             }
             
-            correctAnswer = correctAnswer + 1
-            
-        }else{
-            if !timer.isValid{
-                count = 0.0
-                timer = Timer.scheduledTimer(
-                    timeInterval:0.01,
-                    target: self,
-                    selector: #selector(self.upS),
-                    userInfo: nil,
-                    repeats: true)
+            if tmpArray[4] as! Int == sender.tag{
+                
+                if !timer.isValid{
+                    count = 0.0
+                    timer = Timer.scheduledTimer(
+                        timeInterval:0.01,
+                        target: self,
+                        selector: #selector(self.up),
+                        userInfo: nil,
+                        repeats: true
+                    )
+                }
+                
+                correctAnswer = correctAnswer + 1
+                
+            }else{
+                if !timer.isValid{
+                    count = 0.0
+                    timer = Timer.scheduledTimer(
+                        timeInterval:0.01,
+                        target: self,
+                        selector: #selector(self.upS),
+                        userInfo: nil,
+                        repeats: true)
+                }
+                
+                
             }
+            quizArray.remove(at: 0)
             
             
         }
-        quizArray.remove(at: 0)
         
-        choiceQuiz()
+        
         
     }
-    
-    
-    
-}
+
