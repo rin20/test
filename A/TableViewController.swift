@@ -69,8 +69,8 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func prepare(for segue: UIStoryboardSegue , sender: Any?){
         if segue.identifier == "toViewSegue"{
-            let nextView = segue.destination as! questionViewController
-            nextView.cell = number
+            let nextView = segue.destination as! SaveViewController
+            nextView.Cell = number
             
         }
         

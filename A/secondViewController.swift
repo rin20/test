@@ -75,8 +75,7 @@ class secondViewController: UIViewController {
             Q.setTitle(tmpArray[2] as? String, for: .normal)
             R.setTitle(tmpArray[3] as? String, for: .normal)
             
-        }
-        else{
+        }else{
             let nextView = storyboard!.instantiateViewController(withIdentifier: "thirdVC") as! thirdViewController
             nextView.correctAnswerCount = String(correctAnswer)
             nextView.questionC = String(questionNumber)
@@ -91,10 +90,12 @@ class secondViewController: UIViewController {
         if count > 0.5{
             timer.invalidate()
             logoS.isHidden = true
+            choiceQuiz()
         }else{
             logoS.isHidden = false
+            
         }
-        choiceQuiz()
+        
     }
     
     @objc func upS(){
@@ -110,65 +111,59 @@ class secondViewController: UIViewController {
         if count > 0.5{
             timer.invalidate()
             
-            //            let tmpArray = quizArray[0] as! [Any]
-            //
-            //            question.text = tmpArray[0] as? String
-            //
-            //            P.setTitle(tmpArray[1] as? String, for: .normal)
-            //            Q.setTitle(tmpArray[2] as? String, for: .normal)
-            //            R.setTitle(tmpArray[3] as? String, for: .normal)
-            //
-            //            print("upT動いてる")
-            //        }
+            
         }
     }
-        @IBAction func choiceAnswer(sender: UIButton){
+    @IBAction func choiceAnswer(sender: UIButton){
+        
+        if quizArray.count != 0{
+        let tmpArray = quizArray[0] as! [Any]
+        truth = tmpArray[4] as! Int
+        
+        if P.tag == truth{
+            P.backgroundColor = UIColor.orange
+        }else if Q.tag == truth{
+            Q.backgroundColor = UIColor.orange
+        }else if R.tag == truth{
+            R.backgroundColor = UIColor.orange
+        }
+        
+        if tmpArray[4] as! Int == sender.tag{
             
-            let tmpArray = quizArray[0] as! [Any]
-            truth = tmpArray[4] as! Int
-            
-            if P.tag == truth{
-                P.backgroundColor = UIColor.orange
-            }else if Q.tag == truth{
-                Q.backgroundColor = UIColor.orange
-            }else if R.tag == truth{
-                R.backgroundColor = UIColor.orange
+            if !timer.isValid{
+                count = 0.0
+                timer = Timer.scheduledTimer(
+                    timeInterval:0.01,
+                    target: self,
+                    selector: #selector(self.up),
+                    userInfo: nil,
+                    repeats: true
+                )
             }
             
-            if tmpArray[4] as! Int == sender.tag{
-                
-                if !timer.isValid{
-                    count = 0.0
-                    timer = Timer.scheduledTimer(
-                        timeInterval:0.01,
-                        target: self,
-                        selector: #selector(self.up),
-                        userInfo: nil,
-                        repeats: true
-                    )
-                }
-                
-                correctAnswer = correctAnswer + 1
-                
-            }else{
-                if !timer.isValid{
-                    count = 0.0
-                    timer = Timer.scheduledTimer(
-                        timeInterval:0.01,
-                        target: self,
-                        selector: #selector(self.upS),
-                        userInfo: nil,
-                        repeats: true)
-                }
-                
-                
+            correctAnswer = correctAnswer + 1
+            
+        }else{
+            if !timer.isValid{
+                count = 0.0
+                timer = Timer.scheduledTimer(
+                    timeInterval:0.01,
+                    target: self,
+                    selector: #selector(self.upS),
+                    userInfo: nil,
+                    repeats: true)
             }
-            quizArray.remove(at: 0)
             
             
         }
+        quizArray.remove(at: 0)
         
-        
-        
+        }else{
+            choiceQuiz()
+        }
     }
+    
+    
+    
+}
 
