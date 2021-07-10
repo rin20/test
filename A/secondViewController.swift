@@ -27,7 +27,9 @@ class secondViewController: UIViewController {
     @IBOutlet var back: UIButton!
     @IBOutlet var NEXT: UIButton!
     
-    let rgba = UIColor(red: 1.0, green: 0.81, blue: 0, alpha: 1.0)
+    let blue = UIColor(red: 0.27, green: 0.54, blue: 0.78, alpha: 1.0)
+    let green = UIColor(red: 0.06, green: 0.76, blue: 0.75, alpha: 1.0)
+    let orange  = UIColor(red: 0.93, green: 0.52, blue: 0.41, alpha: 1.0)
     
     
     override func viewDidLoad() {
@@ -63,9 +65,9 @@ class secondViewController: UIViewController {
         
         if quizArray.count != 0{
             
-            P.backgroundColor = rgba
-            Q.backgroundColor = rgba
-            R.backgroundColor = rgba
+            P.backgroundColor = blue
+            Q.backgroundColor = blue
+            R.backgroundColor = blue
             
             let tmpArray = quizArray[0] as! [Any]
             
@@ -120,15 +122,17 @@ class secondViewController: UIViewController {
         let tmpArray = quizArray[0] as! [Any]
         truth = tmpArray[4] as! Int
         
-        if P.tag == truth{
-            P.backgroundColor = UIColor.orange
-        }else if Q.tag == truth{
-            Q.backgroundColor = UIColor.orange
-        }else if R.tag == truth{
-            R.backgroundColor = UIColor.orange
-        }
+        
         
         if tmpArray[4] as! Int == sender.tag{
+            
+            if P.tag == truth{
+                P.backgroundColor = green
+            }else if Q.tag == truth{
+                Q.backgroundColor = green
+            }else if R.tag == truth{
+                R.backgroundColor = green
+            }
             
             if !timer.isValid{
                 count = 0.0
@@ -144,6 +148,15 @@ class secondViewController: UIViewController {
             correctAnswer = correctAnswer + 1
             
         }else{
+            
+            if P.tag == truth{
+                P.backgroundColor = orange
+            }else if Q.tag == truth{
+                Q.backgroundColor = orange
+            }else if R.tag == truth{
+                R.backgroundColor = orange
+            }
+            
             if !timer.isValid{
                 count = 0.0
                 timer = Timer.scheduledTimer(
