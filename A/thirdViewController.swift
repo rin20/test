@@ -19,9 +19,12 @@ class thirdViewController: UIViewController {
     @IBOutlet var answer:UILabel!
     @IBOutlet var back: UIButton!
     @IBOutlet var questionCount: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.hidesBackButton = true
         
         answer.text = correctAnswerCount
         questionCount.text = questionC
@@ -33,8 +36,7 @@ class thirdViewController: UIViewController {
     
     @IBAction func Back(){
 
-        self.dismiss(animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
         
     }
     

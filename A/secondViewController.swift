@@ -23,9 +23,9 @@ class secondViewController: UIViewController {
     @IBOutlet var P: UIButton!
     @IBOutlet var Q: UIButton!
     @IBOutlet var R: UIButton!
-    @IBOutlet var logoS: UIImageView!
+    @IBOutlet var logoS: UILabel!
     @IBOutlet var back: UIButton!
-    @IBOutlet var NEXT: UIButton!
+    
     
     let blue = UIColor(red: 0.27, green: 0.54, blue: 0.78, alpha: 1.0)
     let green = UIColor(red: 0.06, green: 0.76, blue: 0.75, alpha: 1.0)
@@ -78,10 +78,17 @@ class secondViewController: UIViewController {
             R.setTitle(tmpArray[3] as? String, for: .normal)
             
         }else{
-            let nextView = storyboard!.instantiateViewController(withIdentifier: "thirdVC") as! thirdViewController
+            
+//            presentメソッドを使って画面遷移
+//            let nextView = storyboard!.instantiateViewController(withIdentifier: "thirdVC") as! thirdViewController
+//            nextView.correctAnswerCount = String(correctAnswer)
+//            nextView.questionC = String(questionNumber)
+//            self.present(nextView, animated: true, completion: nil)
+            
+            let nextView = self.storyboard?.instantiateViewController(withIdentifier: "thirdVC") as! thirdViewController
             nextView.correctAnswerCount = String(correctAnswer)
-            nextView.questionC = String(questionNumber)
-            self.present(nextView, animated: true, completion: nil)
+            nextView.questionC  = String(questionNumber)
+            self.navigationController?.pushViewController(nextView, animated: true)
             
         }
     }

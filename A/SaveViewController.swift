@@ -34,7 +34,7 @@ class SaveViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        let pink = UIColor(red: 1.00, green: 0.65, blue: 0.66, alpha: 1.00)
+        let orange  = UIColor(red: 0.93, green: 0.52, blue: 0.41, alpha: 1.0)
         
         //        ユーザーデフォルツからデータを取り出して各項目に表記
         if Cell != 0 {
@@ -44,38 +44,39 @@ class SaveViewController: UIViewController {
             p.text = CellArr[Cell][1] as? String
             q.text = CellArr[Cell][2] as? String
             r.text = CellArr[Cell][3] as? String
+            number = CellArr[Cell][4] as! Int
             
             if CellArr[Cell][4] as! Int == 1{
-                truthP.backgroundColor = pink
+                truthP.backgroundColor = orange
             }else if CellArr[Cell][4] as! Int  == 2{
-                truthQ.backgroundColor = pink
+                truthQ.backgroundColor = orange
             }else if CellArr[Cell][4] as! Int == 3{
-                truthR.backgroundColor = pink
+                truthR.backgroundColor = orange
             }
             
-            
+            print(number)
         }
     }
     
     //    正解の選択肢選ぶ時の操作
     @IBAction func True(sender: UIButton){
         
-        let pink = UIColor(red: 1.00, green: 0.65, blue: 0.66, alpha: 1.00)
-        let blue = UIColor(red: 0.67, green: 0.68, blue: 1.00, alpha: 1.00)
+        let orange  = UIColor(red: 0.93, green: 0.52, blue: 0.41, alpha: 1.0)
+        let blue = UIColor(red: 0.27, green: 0.54, blue: 0.78, alpha: 1.0)
         
         if sender.tag == 1{
             number = 1
-            truthP.backgroundColor = pink
+            truthP.backgroundColor = orange
             truthQ.backgroundColor = blue
             truthR.backgroundColor = blue
         }else if sender.tag == 2{
             number = 2
-            truthQ.backgroundColor = pink
+            truthQ.backgroundColor = orange
             truthP.backgroundColor = blue
             truthR.backgroundColor = blue
         }else if sender.tag == 3{
             number = 3
-            truthR.backgroundColor = pink
+            truthR.backgroundColor = orange
             truthP.backgroundColor = blue
             truthQ.backgroundColor = blue
         }
@@ -91,6 +92,7 @@ class SaveViewController: UIViewController {
         let choice2 = q.text
         let choice3 = r.text
         var correct: Int = 0
+        
         
         if number != 0{
             
@@ -142,10 +144,8 @@ class SaveViewController: UIViewController {
             alert.addAction(
                 UIAlertAction(
                     title:"OK",
-                    style: .default,
-                    handler: { action in
-                        print("エラーのアラートは正常に作動しています")
-                    })
+                    style: .default
+                    )
             )
             
             present(alert, animated: true, completion: nil)
