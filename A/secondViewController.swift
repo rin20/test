@@ -35,7 +35,9 @@ class secondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        P.titleLabel?.adjustsFontSizeToFitWidth = true
+        Q.titleLabel?.adjustsFontSizeToFitWidth = true
+        R.titleLabel?.adjustsFontSizeToFitWidth = true
         
         // Do any additional setup after loading the view.
     }

@@ -16,11 +16,10 @@ class homeViewController: UIViewController {
     @IBOutlet var quiz: UILabel!
     @IBOutlet var logo: UIImageView!
     @IBOutlet var A: UIButton!
-    @IBOutlet var B: UIButton!
-    @IBOutlet var C: UIButton!
-
+    @IBOutlet var QuizList: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        QuizList.titleLabel?.adjustsFontSizeToFitWidth = true
 
         // Do any additional setup after loading the view.
     }
