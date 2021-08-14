@@ -12,8 +12,9 @@ class SaveViewController: UIViewController {
     
     var saveData: UserDefaults = UserDefaults.standard
     var number: Int = 0
-    var Cell: Int = 0
+    var Cell: Int = -1
     var CellArr = [[Any]]()
+    
     
     @IBOutlet var question: UITextView!
     @IBOutlet var p: UITextField!
@@ -34,10 +35,14 @@ class SaveViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print(Cell)
+        print("AAAAAAAAAAAAAAAAAAAAaaaaaa")
+        
         let orange  = UIColor(red: 0.93, green: 0.52, blue: 0.41, alpha: 1.0)
         
         //        ユーザーデフォルツからデータを取り出して各項目に表記
-        if Cell != 0 {
+        
+        if Cell >= 0{
             var saveData: UserDefaults = UserDefaults.standard
             CellArr = saveData.object(forKey: "quizArr") as! [[Any]]
             question.text = CellArr[Cell][0] as? String

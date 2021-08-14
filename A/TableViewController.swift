@@ -14,7 +14,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var userdefaults: UserDefaults = UserDefaults.standard
     var number = Int()
-    
+    var numberS: Int = -1
     
 //    ストーリーボードで使うテーブルビューを宣言
     @IBOutlet var table: UITableView!
@@ -71,10 +71,11 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         if segue.identifier == "toViewSegue"{
             let nextView = segue.destination as! SaveViewController
             nextView.Cell = number
-            
         }
         
-    }
+
+    
+        
 
     /*
     // MARK: - Navigation
@@ -85,5 +86,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Pass the selected object to the new view controller.
     }
     */
+    }
 
 }
