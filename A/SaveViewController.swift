@@ -109,7 +109,7 @@ class SaveViewController: UIViewController {
                 correct = 3
             }
             
-            if Cell != 0{
+            if Cell >= 0{
                 CellArr[Cell][0] = question.text as Any
                 CellArr[Cell][1] = p.text as Any
                 CellArr[Cell][2] = q.text as Any
